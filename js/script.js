@@ -15,19 +15,31 @@ function gameboard() {
         for (let j = 0; j < 2; j++) {
           const newDiv = document.createElement("div");
           const image = document.createElement("img");
-          const name = document.createElement("p");
+          //const name = document.createElement("p");
+
+          image.classList.add("character-image");
+          //name.classList.add("character-name");
 
           /* applying API information to the elements I created*/
           image.src = response.data[randomNumber].imageUrl;
-          name.textContent = response.data[randomNumber].name;
+          //name.textContent = response.data[randomNumber].name;
 
           /* putting the information into the HTML */
           newDiv.appendChild(image);
-          newDiv.appendChild(name);
+          //newDiv.appendChild(name);
           memoboard.appendChild(newDiv);
         }
       });
   }
+
+  /* I have to add delay because pictures are loading too slowly:(( */
+  setTimeout(shuffleBoard, 2000);
+}
+
+function shuffleBoard() {
+  const cards = Array.from(memoboard.children);
+  cards.sort(() => Math.random() - 0.5);
+  cards.forEach((card) => memoboard.appendChild(card));
 }
 
 /* calling the function */

@@ -4,6 +4,21 @@ body {
 
 .memo-gameboard {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, max-content);
   grid-template-rows: repeat(4, 1fr);
+  row-gap: 1rem;
+  column-gap: 1rem;
+  width: fit-content;
+  border: 1px solid red;
+
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.character-image {
+  width: 120px;
+  height: 120px;
 }
