@@ -1,4 +1,4 @@
-const body = document.querySelector("body");
+const memoboard = document.querySelector(".memo-gameboard");
 
 /* creating memo gameboard*/
 function gameboard() {
@@ -22,7 +22,7 @@ function gameboard() {
         /* putting the information into the HTML */
         newDiv.appendChild(image);
         newDiv.appendChild(name);
-        body.appendChild(newDiv);
+        memoboard.appendChild(newDiv);
       });
   }
 }
