@@ -18,6 +18,8 @@ function gameboard() {
           //const name = document.createElement("p");
 
           image.classList.add("character-image");
+          newDiv.classList.add(i);
+          console.log(newDiv);
           //name.classList.add("character-name");
 
           /* applying API information to the elements I created*/
@@ -31,6 +33,9 @@ function gameboard() {
         }
       }
     });
+
+  //have to delay it because pictures display slower
+  setTimeout(shuffleBoard, 400);
 }
 
 function shuffleBoard() {
