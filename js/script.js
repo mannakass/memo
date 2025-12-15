@@ -2,13 +2,13 @@ const memoboard = document.querySelector(".memo-gameboard");
 
 /* creating memo gameboard*/
 function gameboard() {
-  for (let i = 0; i < 8; i++) {
-    /* getting info from API */
-    fetch("https://api.disneyapi.dev/character")
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (response) {
+  /* getting info from API */
+  fetch("https://api.disneyapi.dev/character")
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (response) {
+      for (let i = 0; i < 8; i++) {
         const randomNumber = Math.floor(Math.random() * response.data.length);
 
         /* creating new HTML elements */
@@ -29,11 +29,8 @@ function gameboard() {
           //newDiv.appendChild(name);
           memoboard.appendChild(newDiv);
         }
-      });
-  }
-
-  /* I have to add delay because pictures are loading too slowly:(( */
-  setTimeout(shuffleBoard, 2000);
+      }
+    });
 }
 
 function shuffleBoard() {
