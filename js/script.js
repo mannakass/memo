@@ -1,46 +1,64 @@
 const memoboard = document.querySelector(".memo-gameboard");
 let matrix = [];
 
+function game() {
+  generateCards();
+}
+
+async function isImageValid(url) {
+  try {
+    const response = await fetch(url);
+    return response.ok;
+  } catch {
+    return false;
+  }
+}
+
 /* creating memo gameboard*/
-function gameboard() {
+async function generateCards() {
   /* getting info from API */
-  fetch("https://api.disneyapi.dev/character")
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (response) {
-      /* filter out characters who don't have a picture */
-      const validCharacters = response.data.filter(
-        (character) => character.imageUrl
-      );
+  const response = await fetch("https://api.disneyapi.dev/character");
+  const data = await response.json();
 
-      for (let i = 0; i < 8; i++) {
-        const randomNumber = Math.floor(Math.random() * validCharacters.length);
+  /* filter out characters who don't have a picture */
+  const validCharacters = data.data.filter((character) => character.imageUrl);
 
-        /* creating new HTML elements */
-        for (let j = 0; j < 2; j++) {
-          const newDiv = document.createElement("div");
-          const image = document.createElement("img");
-          const name = document.createElement("p");
+  for (let i = 0; i < 8; i++) {
+    let randomNumber;
+    let imageWorks = false;
 
-          /* adding classes */
-          image.classList.add("character-image");
-          name.classList.add("character-name");
+    // Keep picking until we find a working image
+    while (!imageWorks) {
+      randomNumber = Math.floor(Math.random() * validCharacters.length);
+      // This goes to function isImageValid to try and catch the error if there is one
+      imageWorks = await isImageValid(validCharacters[randomNumber].imageUrl);
+    }
+    //const randomNumber = Math.floor(Math.random() * validCharacters.length);
 
-          /* applying API information to the elements I created*/
-          image.src = validCharacters[randomNumber].imageUrl;
-          name.textContent = validCharacters[randomNumber].name;
+    /* creating new HTML elements */
+    for (let j = 0; j < 2; j++) {
+      const newDiv = document.createElement("div");
+      const image = document.createElement("img");
+      const name = document.createElement("p");
 
-          /* putting the information into the HTML */
-          newDiv.appendChild(image);
-          newDiv.appendChild(name);
-          memoboard.appendChild(newDiv);
-        }
-      }
-    });
+      /* adding classes */
+      newDiv.classList.add("character-div");
+      image.classList.add("character-image");
+      name.classList.add("character-name");
 
-  //have to delay it because pictures display slow
-  setTimeout(shuffleBoard, 600);
+      /* applying API information to the elements I created*/
+      image.src = validCharacters[randomNumber].imageUrl;
+      name.textContent = validCharacters[randomNumber].name;
+
+      /* putting the information into the HTML */
+      newDiv.appendChild(image);
+      newDiv.appendChild(name);
+      memoboard.appendChild(newDiv);
+    }
+  }
+
+  /* shuffle the cards */
+  shuffleBoard();
 }
 
 /* shuffle the cards */
@@ -59,5 +77,4 @@ function shuffleBoard() {
   cards.forEach((card) => memoboard.appendChild(card));
 }
 
-/* calling the function */
-gameboard();
+game();
