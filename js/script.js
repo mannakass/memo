@@ -42,10 +42,10 @@ async function generateCards() {
       const image = document.createElement("img");
       const name = document.createElement("p");
 
-      /* adding classes */
+      /* adding attributes to elements */
       newDiv.classList.add("character-div");
       newDiv.classList.add("closed");
-      newDiv.setAttribute("onclick", "toggleDat()");
+      newDiv.setAttribute("onclick", "toggleDat(this.id)");
       newDiv.setAttribute("id", divId);
       image.classList.add("character-image");
       name.classList.add("character-name");
@@ -83,9 +83,10 @@ function shuffleBoard() {
   cards.forEach((card) => memoboard.appendChild(card));
 }
 
-function toggleDat() {
+function toggleDat(givenID) {
   console.log("made it!");
-  let element = document.getElementById("my-element");
+  console.log(givenID);
+  let element = document.getElementById(givenID);
   element.classList.remove("closed");
   element.classList.add("opened");
 }

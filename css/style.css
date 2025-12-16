@@ -33,7 +33,12 @@ body {
 }
 
 .closed {
-  color: red;
+  background-color: red;
+}
+
+.closed .character-image,
+.closed .character-name {
+  visibility: hidden;
 }
 
 .opened {
