@@ -27,8 +27,8 @@ function gameboard() {
           name.classList.add("character-name");
 
           /* applying API information to the elements I created*/
-          image.src = response.data[randomNumber].imageUrl;
-          name.textContent = response.data[randomNumber].name;
+          image.src = validCharacters[randomNumber].imageUrl;
+          name.textContent = validCharacters[randomNumber].name;
 
           /* putting the information into the HTML */
           newDiv.appendChild(image);
