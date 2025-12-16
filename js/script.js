@@ -1,5 +1,6 @@
 const memoboard = document.querySelector(".memo-gameboard");
 let matrix = [];
+let hidden = true;
 
 function game() {
   generateCards();
@@ -22,6 +23,7 @@ async function generateCards() {
 
   /* filter out characters who don't have a picture */
   const validCharacters = data.data.filter((character) => character.imageUrl);
+  let divId = 0;
 
   for (let i = 0; i < 8; i++) {
     let randomNumber;
@@ -33,7 +35,6 @@ async function generateCards() {
       // This goes to function isImageValid to try and catch the error if there is one
       imageWorks = await isImageValid(validCharacters[randomNumber].imageUrl);
     }
-    //const randomNumber = Math.floor(Math.random() * validCharacters.length);
 
     /* creating new HTML elements */
     for (let j = 0; j < 2; j++) {
@@ -43,6 +44,9 @@ async function generateCards() {
 
       /* adding classes */
       newDiv.classList.add("character-div");
+      newDiv.classList.add("closed");
+      newDiv.setAttribute("onclick", "toggleDat()");
+      newDiv.setAttribute("id", divId);
       image.classList.add("character-image");
       name.classList.add("character-name");
 
@@ -54,6 +58,8 @@ async function generateCards() {
       newDiv.appendChild(image);
       newDiv.appendChild(name);
       memoboard.appendChild(newDiv);
+      divId++;
+      console.log(divId);
     }
   }
 
@@ -75,6 +81,13 @@ function shuffleBoard() {
   ];
 
   cards.forEach((card) => memoboard.appendChild(card));
+}
+
+function toggleDat() {
+  console.log("made it!");
+  let element = document.getElementById("my-element");
+  element.classList.remove("closed");
+  element.classList.add("opened");
 }
 
 game();

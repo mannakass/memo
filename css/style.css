@@ -3,7 +3,6 @@ body {
 }
 
 .memo-gameboard {
-  border: 1px solid red;
   display: grid;
   grid-template-columns: repeat(4, max-content);
   grid-template-rows: repeat(4, 1fr);
@@ -31,6 +30,12 @@ body {
 .character-name {
   width: 100%;
   overflow: hidden;
-  text-overflow: ellipsis;
-  border: 1px solid blue;
+}
+
+.closed {
+  color: red;
+}
+
+.opened {
+  color: black;
 }
