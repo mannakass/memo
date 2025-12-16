@@ -1,4 +1,5 @@
 const memoboard = document.querySelector(".memo-gameboard");
+let matrix = [];
 
 /* creating memo gameboard*/
 function gameboard() {
@@ -38,13 +39,23 @@ function gameboard() {
       }
     });
 
-  //have to delay it because pictures display slower
+  //have to delay it because pictures display slow
   setTimeout(shuffleBoard, 600);
 }
 
+/* shuffle the cards */
 function shuffleBoard() {
   const cards = Array.from(memoboard.children);
   cards.sort(() => Math.random() - 0.5);
+
+  /* put shuffled cards into the matrix */
+  matrix = [
+    cards.slice[(0, 4)],
+    cards.slice[(4, 8)],
+    cards.slice[(8, 12)],
+    cards.slice[(12, 16)],
+  ];
+
   cards.forEach((card) => memoboard.appendChild(card));
 }
 
