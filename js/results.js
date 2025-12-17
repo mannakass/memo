@@ -48,6 +48,7 @@ document.getElementById("world").textContent = worldNames[level];
 document.getElementById("movie").textContent = movieNames[level];
 
 document.body.style.backgroundImage = `url('${backgrounds[level]}')`;
+document.body.style.backgroundSize = "cover";
 
 // When "Play again" is clicked, increase level
 document.querySelector(".button").addEventListener("click", function (e) {

@@ -6,8 +6,8 @@
 body {
   margin: 0;
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-  background-size: cover;
-  background-repeat: no-repeat;
+  width: 100vw;
+  height: 100vh;
 }
 
 .memo-gameboard {
@@ -52,6 +52,12 @@ body {
   visibility: hidden;
 }
 
+.closed:hover {
+  position: relative;
+  bottom: 4px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
 .button {
   padding: 12px 40px;
   border: 2px solid pink;
@@ -93,6 +99,6 @@ body {
 
 h1 {
   font-family: "DisneyFont", sans-serif;
-  font-size: 4rem;
+  font-size: 3rem;
   color: white;
 }

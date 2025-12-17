@@ -31,6 +31,7 @@ function showLevel() {
   };
 
   document.body.style.backgroundImage = `url('${backgrounds[level]}')`;
+  document.body.style.backgroundSize = "cover";
 }
 
 /* it runs when user clicks on a card */
