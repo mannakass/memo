@@ -6,8 +6,7 @@
 body {
   margin: 0;
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-  background-image: url("../img/background.jpeg");
-  background-size: auto;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 
@@ -29,6 +28,7 @@ body {
 .character-div {
   background-color: white;
   width: 120px;
+  border-radius: 6px;
 }
 
 .character-image {
@@ -39,6 +39,7 @@ body {
 .character-name {
   width: 100%;
   overflow: hidden;
+  text-align: center;
 }
 
 .closed {
@@ -84,6 +85,6 @@ body {
 
 h1 {
   font-family: "DisneyFont", sans-serif;
-  font-size: 48px;
+  font-size: 4rem;
   color: white;
 }

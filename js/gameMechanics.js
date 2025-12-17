@@ -1,24 +1,40 @@
-//const memoboard = document.querySelector(".memo-gameboard");
 const memoryboard = document.querySelector(".memo-gameboard");
 let cardOneID;
 let cardTwoID;
 let cardOneName;
 let cardTwoName;
+let level = 1;
 let clickCount = 0;
 let musicStarted = false;
 const audio = new Audio("../music/pocahontas-soundtrack.mp3");
 
+function showLevel() {
+  const level = localStorage.getItem("level") || 1;
+  document.getElementById("level").textContent = level;
+
+  const backgrounds = {
+    1: "../img/level1.jpeg",
+    2: "../img/level2.jpeg",
+    3: "../img/level3.png",
+    4: "../img/level4.webp",
+    5: "../img/level5.jpg",
+  };
+
+  document.body.style.backgroundImage = `url('${backgrounds[level]}')`;
+}
+
+/* it runs when user clicks on a card */
 function toggleDat(givenID) {
   if (!musicStarted) {
     audio.play();
     musicStarted = true;
   }
-  console.log(document.querySelector(".memo-gameboard"));
-  console.log(document.querySelector(".memo-gameboard").children);
 
+  /* gets the name and the ID of the character */
   let elementID = document.getElementById(givenID);
   let elementText = elementID.textContent;
 
+  /* changes the class to reveal the character */
   elementID.classList.remove("closed");
   elementID.classList.add("opened");
 
@@ -28,15 +44,18 @@ function toggleDat(givenID) {
 function checkHowManyClicked(name, specialId) {
   clickCount++;
 
+  /* if only only one card has been selected, just save the information of the character */
   if (clickCount === 1) {
     cardOneName = name;
     cardOneID = specialId;
   }
 
+  /* if two cards have been selected, save the information of the second character */
   if (clickCount === 2) {
     cardTwoName = name;
     cardTwoID = specialId;
 
+    /* compare the two characters */
     if (cardOneName == cardTwoName) {
       console.log("Yay");
 
@@ -51,6 +70,7 @@ function checkHowManyClicked(name, specialId) {
           window.location.href = "results.html";
         }, 1000);
       }
+      /* if characters weren't the same, close the cards */
     } else {
       console.log("vale");
 
