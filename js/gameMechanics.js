@@ -10,12 +10,11 @@ const audio = new Audio("../music/pocahontas-soundtrack.mp3");
 
 function showLevel() {
   const level = localStorage.getItem("level") || 1;
-  document.getElementById("level").textContent = level;
 
   const backgrounds = {
     1: "../img/level1.jpeg",
     2: "../img/level2.jpeg",
-    3: "../img/level3.png",
+    3: "../img/level3.jpg",
     4: "../img/level4.webp",
     5: "../img/level5.jpg",
   };

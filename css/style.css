@@ -61,8 +61,16 @@ body {
   text-decoration: none;
 }
 
+.button:hover {
+  background-color: lightblue;
+  border: 2px solid lightblue;
+}
+
 .results {
-  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
 .info-container {
