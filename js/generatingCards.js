@@ -3,6 +3,7 @@ let matrix = [];
 const usedCharacters = [];
 let hidden = true;
 
+/* check if pictures gives any error */
 async function isImageValid(url) {
   try {
     const response = await fetch(url);
@@ -51,6 +52,8 @@ async function generateCards() {
       newDiv.classList.add("closed");
       newDiv.setAttribute("onclick", "toggleDat(this.id)");
       newDiv.setAttribute("id", divId);
+      newDiv.setAttribute("aria-label", "Card " + divId);
+      newDiv.dataset.characterName = validCharacters[randomNumber].name;
       image.classList.add("character-image");
       name.classList.add("character-name");
 

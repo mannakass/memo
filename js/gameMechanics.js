@@ -42,9 +42,9 @@ let currentLevel = localStorage.getItem("level") || 1;
 let audio = new Audio(soundtracks[currentLevel]);
 audio.loop = true;
 
+/* get the level to show corresponding background image */
 function showLevel() {
   currentLevel = localStorage.getItem("level") || 1;
-  document.getElementById("level").textContent = currentLevel;
 
   document.body.style.backgroundImage = `url('${backgrounds[currentLevel]}')`;
   document.body.style.backgroundSize = "cover";
@@ -63,6 +63,9 @@ function toggleDat(givenID) {
   let elementID = document.getElementById(givenID);
   let elementText = elementID.textContent;
 
+  const img = elementID.querySelector(".character-image");
+  elementID.setAttribute("aria-label", elementID.dataset.characterName);
+
   /* changes the class to reveal the character */
   elementID.classList.remove("closed");
   elementID.classList.add("opened");
@@ -73,13 +76,16 @@ function toggleDat(givenID) {
 function checkHowManyClicked(elementText, visibleID) {
   clickCount++;
 
+  /* if clicked once, add the character data into variables */
   if (clickCount === 1) {
     cardOneName = elementText;
     cardOneID = visibleID;
+    /* if clicked twice add the character data into another variables  */
   } else if (clickCount === 2) {
     cardTwoName = elementText;
     cardTwoID = visibleID;
 
+    /* compare the two characters */
     if (cardOneName === cardTwoName) {
       console.log("õige");
 
@@ -89,6 +95,7 @@ function checkHowManyClicked(elementText, visibleID) {
         card.classList.contains("opened")
       );
 
+      /* if all the cards are opened, show results */
       if (allOpened) {
         setTimeout(function () {
           showResults();
@@ -97,6 +104,7 @@ function checkHowManyClicked(elementText, visibleID) {
     } else {
       console.log("vale");
 
+      /* if characters are not the same, make them hidden again */
       setTimeout(function () {
         let cardOne = document.getElementById(cardOneID);
         cardOne.classList.remove("opened");
@@ -104,7 +112,7 @@ function checkHowManyClicked(elementText, visibleID) {
         let cardTwo = document.getElementById(cardTwoID);
         cardTwo.classList.remove("opened");
         cardTwo.classList.add("closed");
-      }, 2000);
+      }, 700);
     }
 
     clickCount = 0;
