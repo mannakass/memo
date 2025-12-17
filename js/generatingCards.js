@@ -1,5 +1,6 @@
 const memoboard = document.querySelector(".memo-gameboard");
 let matrix = [];
+const usedCharacters = [];
 let hidden = true;
 
 async function isImageValid(url) {
@@ -25,12 +26,19 @@ async function generateCards() {
     let randomNumber;
     let imageWorks = false;
 
-    // Keep picking until we find a working image
+    // Keep picking until we find a working image that hasn't been used
     while (!imageWorks) {
       randomNumber = Math.floor(Math.random() * validCharacters.length);
-      // This goes to function isImageValid to try and catch the error if there is one
+      // Skip if already used
+      if (usedCharacters.includes(randomNumber)) {
+        continue;
+      }
+
       imageWorks = await isImageValid(validCharacters[randomNumber].imageUrl);
     }
+
+    // Mark this character as used
+    usedCharacters.push(randomNumber);
 
     /* creating new HTML elements */
     for (let j = 0; j < 2; j++) {

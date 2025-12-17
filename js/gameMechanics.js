@@ -5,8 +5,14 @@ let cardTwoID;
 let cardOneName;
 let cardTwoName;
 let clickCount = 0;
+let musicStarted = false;
+const audio = new Audio("../music/pocahontas-soundtrack.mp3");
 
 function toggleDat(givenID) {
+  if (!musicStarted) {
+    audio.play();
+    musicStarted = true;
+  }
   console.log(document.querySelector(".memo-gameboard"));
   console.log(document.querySelector(".memo-gameboard").children);
 
@@ -33,7 +39,6 @@ function checkHowManyClicked(name, specialId) {
 
     if (cardOneName == cardTwoName) {
       console.log("Yay");
-      // Check if all cards are now opened
 
       // Check if all cards are now opened
       const allCards = document.querySelectorAll(".character-div");
