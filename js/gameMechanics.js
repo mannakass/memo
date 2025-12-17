@@ -3,7 +3,6 @@ let cardOneID;
 let cardTwoID;
 let cardOneName;
 let cardTwoName;
-let level = 1;
 let clickCount = 0;
 let musicStarted = false;
 
@@ -15,23 +14,42 @@ const soundtracks = {
   5: "../music/tarzan.mp3",
 };
 
-const currentLevel = localStorage.getItem("level") || 1;
-const audio = new Audio(soundtracks[currentLevel]);
+const backgrounds = {
+  1: "../img/level1.jpeg",
+  2: "../img/level2.jpeg",
+  3: "../img/level3.jpg",
+  4: "../img/level4.webp",
+  5: "../img/level5.jpg",
+};
+
+const worldNames = {
+  1: "The New World",
+  2: "Corona",
+  3: "Pride Lands",
+  4: "The Enchanted Forest",
+  5: "The Jungle",
+};
+
+const movieNames = {
+  1: "Pocahontas",
+  2: "Tangled",
+  3: "The Lion King",
+  4: "Snow White",
+  5: "Tarzan",
+};
+
+let currentLevel = localStorage.getItem("level") || 1;
+let audio = new Audio(soundtracks[currentLevel]);
 audio.loop = true;
 
 function showLevel() {
-  const level = localStorage.getItem("level") || 1;
+  currentLevel = localStorage.getItem("level") || 1;
+  document.getElementById("level").textContent = currentLevel;
 
-  const backgrounds = {
-    1: "../img/level1.jpeg",
-    2: "../img/level2.jpeg",
-    3: "../img/level3.jpg",
-    4: "../img/level4.webp",
-    5: "../img/level5.jpg",
-  };
-
-  document.body.style.backgroundImage = `url('${backgrounds[level]}')`;
+  document.body.style.backgroundImage = `url('${backgrounds[currentLevel]}')`;
   document.body.style.backgroundSize = "cover";
+  document.body.style.backgroundPosition = "center";
+  document.body.style.backgroundRepeat = "no-repeat";
 }
 
 /* it runs when user clicks on a card */
@@ -52,23 +70,18 @@ function toggleDat(givenID) {
   checkHowManyClicked(elementText, givenID);
 }
 
-function checkHowManyClicked(name, specialId) {
+function checkHowManyClicked(elementText, visibleID) {
   clickCount++;
 
-  /* if only only one card has been selected, just save the information of the character */
   if (clickCount === 1) {
-    cardOneName = name;
-    cardOneID = specialId;
-  }
+    cardOneName = elementText;
+    cardOneID = visibleID;
+  } else if (clickCount === 2) {
+    cardTwoName = elementText;
+    cardTwoID = visibleID;
 
-  /* if two cards have been selected, save the information of the second character */
-  if (clickCount === 2) {
-    cardTwoName = name;
-    cardTwoID = specialId;
-
-    /* compare the two characters */
-    if (cardOneName == cardTwoName) {
-      console.log("Yay");
+    if (cardOneName === cardTwoName) {
+      console.log("õige");
 
       // Check if all cards are now opened
       const allCards = document.querySelectorAll(".character-div");
@@ -77,12 +90,10 @@ function checkHowManyClicked(name, specialId) {
       );
 
       if (allOpened) {
-        localStorage.setItem("audioTime", audio.currentTime);
         setTimeout(function () {
-          window.location.href = "results.html";
+          showResults();
         }, 1000);
       }
-      /* if characters weren't the same, close the cards */
     } else {
       console.log("vale");
 
@@ -93,15 +104,46 @@ function checkHowManyClicked(name, specialId) {
         let cardTwo = document.getElementById(cardTwoID);
         cardTwo.classList.remove("opened");
         cardTwo.classList.add("closed");
-
-        cardOneID = 0;
-        cardTwoID = 0;
-
-        clickCount = 0;
-      }, 800);
+      }, 2000);
     }
+
     clickCount = 0;
-    cardOneName = "";
-    cardTwoName = "";
   }
+}
+
+function showResults() {
+  document.getElementById("world").textContent = worldNames[currentLevel];
+  document.getElementById("movie").textContent = movieNames[currentLevel];
+
+  document.getElementById("game-section").style.display = "none";
+  document.getElementById("results-section").style.display = "flex";
+}
+
+function nextLevel() {
+  let level = Number(localStorage.getItem("level") || 1);
+
+  if (level >= 5) {
+    localStorage.setItem("level", 1);
+  } else {
+    localStorage.setItem("level", level + 1);
+  }
+
+  // Reset game
+  document.querySelector(".memo-gameboard").innerHTML = "";
+  document.getElementById("results-section").style.display = "none";
+  document.getElementById("game-section").style.display = "block";
+
+  // Reset click tracking
+  clickCount = 0;
+
+  // Update level and background
+  showLevel();
+
+  // Generate new cards
+  generateCards();
+
+  // Change music
+  currentLevel = localStorage.getItem("level");
+  audio.src = soundtracks[currentLevel];
+  audio.play();
 }
