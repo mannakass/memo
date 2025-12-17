@@ -1,6 +1,24 @@
 // Show current level
 const level = localStorage.getItem("level") || 1;
 
+const soundtracks = {
+  1: "../music/pocahontas.mp3",
+  2: "../music/tangled.mp3",
+  3: "../music/lionking.mp3",
+  4: "../music/snowwhite.mp3",
+  5: "../music/tarzan.mp3",
+};
+
+const audio = new Audio(soundtracks[level]);
+audio.loop = true;
+
+const savedTime = localStorage.getItem("audioTime");
+if (savedTime) {
+  audio.currentTime = Number(savedTime);
+}
+
+audio.play();
+
 // Set background for this level
 const backgrounds = {
   1: "../img/level1.jpeg",

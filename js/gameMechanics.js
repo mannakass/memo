@@ -6,7 +6,18 @@ let cardTwoName;
 let level = 1;
 let clickCount = 0;
 let musicStarted = false;
-const audio = new Audio("../music/pocahontas-soundtrack.mp3");
+
+const soundtracks = {
+  1: "../music/pocahontas.mp3",
+  2: "../music/tangled.mp3",
+  3: "../music/lionking.mp3",
+  4: "../music/snowwhite.mp3",
+  5: "../music/tarzan.mp3",
+};
+
+const currentLevel = localStorage.getItem("level") || 1;
+const audio = new Audio(soundtracks[currentLevel]);
+audio.loop = true;
 
 function showLevel() {
   const level = localStorage.getItem("level") || 1;
@@ -65,6 +76,7 @@ function checkHowManyClicked(name, specialId) {
       );
 
       if (allOpened) {
+        localStorage.setItem("audioTime", audio.currentTime);
         setTimeout(function () {
           window.location.href = "results.html";
         }, 1000);
