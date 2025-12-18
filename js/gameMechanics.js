@@ -54,14 +54,20 @@ function showLevel() {
 
 /* it runs when user clicks on a card */
 function toggleDat(givenID) {
+  /* gets the name and the ID of the character */
+  let elementID = document.getElementById(givenID);
+  let elementText = elementID.textContent;
+
+  // Don't allow clicking opened cards
+  if (elementID.classList.contains("opened")) {
+    return;
+  }
+
+  /* play music once user click on a card */
   if (!musicStarted) {
     audio.play();
     musicStarted = true;
   }
-
-  /* gets the name and the ID of the character */
-  let elementID = document.getElementById(givenID);
-  let elementText = elementID.textContent;
 
   const img = elementID.querySelector(".character-image");
   elementID.setAttribute("aria-label", elementID.dataset.characterName);
