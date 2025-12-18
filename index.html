@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body onload="showLevel(); generateCards();">
-    <header class="title">
+    <header class="title" tabindex="-1" aria-label="Disney Memo Game">
       <h1>Disney memo</h1>
+      <button id="mute-button" aria-label="Mute music">🔊</button>
     </header>
 
     <!-- Game section -->
@@ -18,7 +19,7 @@
 
     <!-- Results section (hidden at first) -->
     <div id="results-section" style="display: none">
-      <div class="info-container">
+      <div class="info-container" tabindex="-1" id="results-container">
         <h2>You win!</h2>
         <p>
           You've explored <span id="world"></span>! (<span id="movie"></span>)

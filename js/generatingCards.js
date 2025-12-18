@@ -63,6 +63,7 @@ async function generateCards() {
 
       /* applying API information to the elements I created*/
       image.src = validCharacters[randomNumber].imageUrl;
+      image.alt = ""; // empty when hidden
       name.textContent = validCharacters[randomNumber].name;
 
       /* putting the information into the HTML */

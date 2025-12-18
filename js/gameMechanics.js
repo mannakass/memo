@@ -52,6 +52,16 @@ function showLevel() {
   document.body.style.backgroundRepeat = "no-repeat";
 }
 
+/* Focus on title and announce */
+setTimeout(function () {
+  const title = document.getElementById("game-title");
+  title.setAttribute(
+    "aria-label",
+    "Disney Memo. World " + currentLevel + ". Press M to toggle music."
+  );
+  title.focus();
+}, 500);
+
 /* it runs when user clicks on a card */
 function toggleDat(givenID) {
   /* gets the name and the ID of the character */
@@ -71,6 +81,7 @@ function toggleDat(givenID) {
 
   const img = elementID.querySelector(".character-image");
   elementID.setAttribute("aria-label", elementID.dataset.characterName);
+  img.alt = elementID.dataset.characterName;
 
   /* changes the class to reveal the character */
   elementID.classList.remove("closed");
@@ -152,6 +163,17 @@ function showResults() {
 
   document.getElementById("game-section").style.display = "none";
   document.getElementById("results-section").style.display = "flex";
+
+  const container = document.getElementById("results-container");
+  container.setAttribute(
+    "aria-label",
+    "You win! You've explored " +
+      worldNames[currentLevel] +
+      " from " +
+      movieNames[currentLevel] +
+      ". Press button to explore more."
+  );
+  container.focus();
 }
 
 function nextLevel() {
@@ -192,3 +214,29 @@ document.addEventListener("keydown", function (e) {
     }
   }
 });
+
+// Mute button click
+document.getElementById("mute-button").addEventListener("click", toggleMusic);
+
+// M key to mute
+document.addEventListener("keydown", function (e) {
+  if (e.key === "m" || e.key === "M") {
+    toggleMusic();
+  }
+});
+
+function toggleMusic() {
+  const button = document.getElementById("mute-button");
+
+  if (audio.paused) {
+    audio.play();
+    button.textContent = "🔊";
+    button.setAttribute("aria-label", "Mute music");
+    document.getElementById("announcer").textContent = "Music on";
+  } else {
+    audio.pause();
+    button.textContent = "🔇";
+    button.setAttribute("aria-label", "Unmute music");
+    document.getElementById("announcer").textContent = "Music off";
+  }
+}

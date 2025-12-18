@@ -64,8 +64,6 @@ body {
 
 .closed:focus {
   border: 3px solid blue;
-  background-image: none;
-  background-color: yellow;
 }
 
 .closed .character-image,
@@ -120,8 +118,10 @@ body {
 
 h1 {
   font-family: "DisneyFont", sans-serif;
-  font-size: 3rem;
+  font-size: 4rem;
   color: white;
+  -webkit-text-stroke: 1px black;
+
   padding: 3rem;
 }
 
@@ -130,4 +130,20 @@ h1 {
   justify-content: center;
   align-items: center;
   min-height: 80vh;
+}
+
+#mute-button {
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  position: absolute;
+  top: 32px;
+  left: 32px;
+}
+
+#mute-button:hover {
+  background: rgba(0, 0, 0, 0.7);
 }
