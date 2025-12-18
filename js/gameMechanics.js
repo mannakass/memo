@@ -94,6 +94,8 @@ function checkHowManyClicked(elementText, visibleID) {
     /* compare the two characters */
     if (cardOneName === cardTwoName) {
       console.log("õige");
+      document.getElementById("announcer").textContent =
+        "Match found! " + cardOneName;
 
       // Check if all cards are now opened
       const allCards = document.querySelectorAll(".character-div");
@@ -109,15 +111,34 @@ function checkHowManyClicked(elementText, visibleID) {
       }
     } else {
       console.log("vale");
+      document.getElementById("announcer").textContent = "No match. Try again.";
 
       /* if characters are not the same, make them hidden again */
-      setTimeout(function () {
+      /*       setTimeout(function () {
         let cardOne = document.getElementById(cardOneID);
         cardOne.classList.remove("opened");
         cardOne.classList.add("closed");
         let cardTwo = document.getElementById(cardTwoID);
         cardTwo.classList.remove("opened");
         cardTwo.classList.add("closed");
+      }, 700); */
+
+      setTimeout(function () {
+        let cardOne = document.getElementById(cardOneID);
+        cardOne.classList.remove("opened");
+        cardOne.classList.add("closed");
+        cardOne.setAttribute(
+          "aria-label",
+          "Card " + cardOne.dataset.cardNumber
+        );
+
+        let cardTwo = document.getElementById(cardTwoID);
+        cardTwo.classList.remove("opened");
+        cardTwo.classList.add("closed");
+        cardTwo.setAttribute(
+          "aria-label",
+          "Card " + cardTwo.dataset.cardNumber
+        );
       }, 700);
     }
 
@@ -161,3 +182,13 @@ function nextLevel() {
   audio.src = soundtracks[currentLevel];
   audio.play();
 }
+
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Enter" || e.key === " ") {
+    const focused = document.activeElement;
+    if (focused.classList.contains("character-div")) {
+      e.preventDefault(); // stop spacebar from scrolling
+      toggleDat(focused.id);
+    }
+  }
+});

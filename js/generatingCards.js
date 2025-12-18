@@ -54,6 +54,10 @@ async function generateCards() {
       newDiv.setAttribute("id", divId);
       newDiv.setAttribute("aria-label", "Card " + divId);
       newDiv.dataset.characterName = validCharacters[randomNumber].name;
+      /* divs ain't focusable by default, adding the tabindex makes them focusable */
+      newDiv.setAttribute("tabindex", "0");
+      newDiv.setAttribute("role", "button");
+
       image.classList.add("character-image");
       name.classList.add("character-name");
 
@@ -87,5 +91,9 @@ function shuffleBoard() {
     cards.slice[(12, 16)],
   ];
 
-  cards.forEach((card) => memoboard.appendChild(card));
+  cards.forEach((card, index) => {
+    memoboard.appendChild(card);
+    card.setAttribute("aria-label", "Card " + (index + 1));
+    card.dataset.cardNumber = index + 1;
+  });
 }
