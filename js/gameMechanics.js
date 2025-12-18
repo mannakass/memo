@@ -5,6 +5,7 @@ let cardOneName;
 let cardTwoName;
 let clickCount = 0;
 let musicStarted = false;
+let isMuted = false;
 
 const soundtracks = {
   1: "../music/pocahontas.mp3",
@@ -74,11 +75,10 @@ function toggleDat(givenID) {
   }
 
   /* play music once user click on a card */
-  if (!musicStarted) {
+  if (!musicStarted && !isMuted) {
     audio.play();
     musicStarted = true;
   }
-
   const img = elementID.querySelector(".character-image");
   elementID.setAttribute("aria-label", elementID.dataset.characterName);
   img.alt = elementID.dataset.characterName;
@@ -177,6 +177,7 @@ function showResults() {
 }
 
 function nextLevel() {
+  console.log("nextLevel called");
   let level = Number(localStorage.getItem("level") || 1);
 
   if (level >= 5) {
@@ -202,9 +203,10 @@ function nextLevel() {
   // Change music
   currentLevel = localStorage.getItem("level");
   audio.src = soundtracks[currentLevel];
-  audio.play();
+  if (!isMuted) {
+    audio.play();
+  }
 }
-
 document.addEventListener("keydown", function (e) {
   if (e.key === "Enter" || e.key === " ") {
     const focused = document.activeElement;
@@ -228,13 +230,15 @@ document.addEventListener("keydown", function (e) {
 function toggleMusic() {
   const button = document.getElementById("mute-button");
 
-  if (audio.paused) {
+  if (isMuted) {
     audio.play();
+    isMuted = false;
     button.textContent = "🔊";
     button.setAttribute("aria-label", "Mute music");
     document.getElementById("announcer").textContent = "Music on";
   } else {
     audio.pause();
+    isMuted = true;
     button.textContent = "🔇";
     button.setAttribute("aria-label", "Unmute music");
     document.getElementById("announcer").textContent = "Music off";
