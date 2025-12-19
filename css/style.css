@@ -38,7 +38,6 @@ body {
 }
 
 .character-div:focus {
-  border: 3px solid blue;
 }
 
 .character-image {
@@ -63,7 +62,8 @@ body {
 }
 
 .closed:focus {
-  border: 3px solid blue;
+  background-image: none;
+  background-color: yellow;
 }
 
 .closed .character-image,
